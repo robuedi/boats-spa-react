@@ -18,19 +18,14 @@ import Star from '@mui/icons-material/Star';
 type BoatCardProps = {
   category: React.ReactNode;
   image: string;
-  liked?: boolean;
-  rareFind?: boolean;
   title: React.ReactNode;
 };
 
 export default function BoatCard({
   category,
   title,
-  rareFind = false,
-  liked = false,
   image,
 }: BoatCardProps) {
-  const [isLiked, setIsLiked] = React.useState(liked);
   return (
     <Card
       variant="outlined"
@@ -69,30 +64,6 @@ export default function BoatCard({
             direction="row"
             sx={{ position: 'absolute', top: 0, width: '100%', p: 1 }}
           >
-            {rareFind && (
-              <Chip
-                variant="soft"
-                color="success"
-                startDecorator={<WorkspacePremiumRoundedIcon />}
-                size="md"
-              >
-                Rare find
-              </Chip>
-            )}
-            <IconButton
-              variant="plain"
-              size="sm"
-              color={isLiked ? 'danger' : 'neutral'}
-              onClick={() => setIsLiked((prev) => !prev)}
-              sx={{
-                display: { xs: 'flex', sm: 'none' },
-                ml: 'auto',
-                borderRadius: '50%',
-                zIndex: '20',
-              }}
-            >
-              <FavoriteRoundedIcon />
-            </IconButton>
           </Stack>
         </AspectRatio>
       </CardOverflow>
@@ -116,18 +87,6 @@ export default function BoatCard({
               </Link>
             </Typography>
           </div>
-          <IconButton
-            variant="plain"
-            size="sm"
-            color={isLiked ? 'danger' : 'neutral'}
-            onClick={() => setIsLiked((prev) => !prev)}
-            sx={{
-              display: { xs: 'none', sm: 'flex' },
-              borderRadius: '50%',
-            }}
-          >
-            <FavoriteRoundedIcon />
-          </IconButton>
         </Stack>
 
         <Stack
