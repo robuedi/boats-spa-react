@@ -1,4 +1,4 @@
-import {GET_BOATS} from "../graphql/index";
+import { GET_BOATS } from "../graphql/index";
 import { useQuery } from "@apollo/client";
 
 type Props = {

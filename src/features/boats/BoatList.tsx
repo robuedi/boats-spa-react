@@ -6,7 +6,7 @@ import Stack from '@mui/joy/Stack';
 import {Boat} from '../../__generated__/graphql';
 
 type Props = {
-  boats: Pick<Boat, "name"|"location">[]
+  boats: Pick<Boat, "name"|"location"|"price"|"description"|"year"|"length"|"sold">[]
 }
 
 export default function BoatList(props: Props) {
@@ -18,8 +18,13 @@ export default function BoatList(props: Props) {
           {props.boats.map(item => 
             <BoatCard
               title={item.name}
-              category="Entire loft in central business district"
-              image="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400"
+              price={item.price}
+              location={item.location}
+              description={item.description}
+              year={item.year}
+              length={item.length}
+              sold={item.sold}
+              image={`https://loremflickr.com/700/400/yacht?v=${Math.random()}`}
             />  
           )}
         </Stack>

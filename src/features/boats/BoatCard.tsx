@@ -4,27 +4,35 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import Chip from '@mui/joy/Chip';
-import IconButton from '@mui/joy/IconButton';
 import Link from '@mui/joy/Link';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FmdGoodRoundedIcon from '@mui/icons-material/FmdGoodRounded';
-import KingBedRoundedIcon from '@mui/icons-material/KingBedRounded';
-import WifiRoundedIcon from '@mui/icons-material/WifiRounded';
-import Star from '@mui/icons-material/Star';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import StraightenIcon from '@mui/icons-material/Straighten';
+import {Maybe} from '../../__generated__/graphql';
 
 type BoatCardProps = {
-  category: React.ReactNode;
   image: string;
   title: React.ReactNode;
+  price: number,
+  year: number,
+  length: number,
+  location: string,
+  sold:  number,
+  description: Maybe<string> | undefined
 };
 
 export default function BoatCard({
-  category,
   title,
   image,
+  price,
+  location,
+  year,
+  length,
+  description,
+  sold
 }: BoatCardProps) {
   return (
     <Card
@@ -64,6 +72,16 @@ export default function BoatCard({
             direction="row"
             sx={{ position: 'absolute', top: 0, width: '100%', p: 1 }}
           >
+            {!!sold && (
+              <Chip
+                variant="soft"
+                color="danger"
+                startDecorator={<WorkspacePremiumRoundedIcon />}
+                size="md"
+              >
+                Sold
+              </Chip>
+            )}
           </Stack>
         </AspectRatio>
       </CardOverflow>
@@ -75,7 +93,6 @@ export default function BoatCard({
           alignItems="flex-start"
         >
           <div>
-            <Typography level="body-sm">{category}</Typography>
             <Typography level="title-md">
               <Link
                 overlay
@@ -97,33 +114,25 @@ export default function BoatCard({
           sx={{ my: 0.25 }}
         >
           <Typography level="body-xs" startDecorator={<FmdGoodRoundedIcon />}>
-            Collingwood VIC
+            {location}
           </Typography>
-          <Typography level="body-xs" startDecorator={<KingBedRoundedIcon />}>
-            1 bed
+          <Typography level="body-xs" startDecorator={<CalendarMonthIcon />}>
+            {year}
           </Typography>
-          <Typography level="body-xs" startDecorator={<WifiRoundedIcon />}>
-            Wi-Fi
+          <Typography level="body-xs" startDecorator={<StraightenIcon />}>
+            {length}m
           </Typography>
         </Stack>
         <Stack direction="row" sx={{ mt: 'auto' }}>
-          <Typography
-            level="title-sm"
-            startDecorator={
-              <React.Fragment>
-                <Star sx={{ color: 'warning.400' }} />
-                <Star sx={{ color: 'warning.400' }} />
-                <Star sx={{ color: 'warning.400' }} />
-                <Star sx={{ color: 'warning.400' }} />
-                <Star sx={{ color: 'warning.200' }} />
-              </React.Fragment>
-            }
-            sx={{ display: 'flex', gap: 1 }}
-          >
-            4.0
-          </Typography>
+          {description && <Typography
+              level="title-sm"
+              sx={{ display: 'flex', gap: 1 }}
+            >
+              {description}
+            </Typography>
+          }
           <Typography level="title-lg" sx={{ flexGrow: 1, textAlign: 'right' }}>
-            <strong>$540</strong> <Typography level="body-md">total</Typography>
+            <strong>£{price.toLocaleString()}</strong> <Typography level="body-md">total</Typography>
           </Typography>
         </Stack>
       </CardContent>
